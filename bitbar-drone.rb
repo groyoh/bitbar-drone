@@ -247,7 +247,7 @@ def print_build(output, build, with_author: false, with_repo: false)
   title = title.split("\n").first
   title = title[0..50] + '...' if title.length > 50
 
-  if build.status == 'running'
+  if %w[pending running].include?(build.status.to_s.downcase)
     color = Colors::ORANGE
   elsif build.status == 'failure'
     color = Colors::RED
@@ -297,7 +297,9 @@ def set_title(output, builds_grouped_by_repo)
   builds_grouped_by_repo.each do |_, builds|
     builds = recent_builds(builds)
     failures = true if builds.any? && builds.first.status == 'failure'
-    pending = true if builds.any? { |build| build.status == 'running' }
+    if builds.any? { |build| %w[pending running].include?(build.status.to_s.downcase) }
+      pending = true
+    end
   end
 
   if failures
