@@ -325,7 +325,7 @@ begin
     .select { |repo| REPOSITORIES.include?(repo.slug) }
     .each do |repo|
       repo_builds = client.builds(repo)
-      repo_builds.select { |b| AUTHORS.empty? || AUTHORS.include?(b.author_login.downcase) }
+      repo_builds.select! { |b| AUTHORS.empty? || AUTHORS.include?(b.author_login.downcase) }
       builds_grouped_by_repo[repo.slug] = repo_builds
       builds.concat(repo_builds)
     end
