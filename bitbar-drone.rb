@@ -219,7 +219,7 @@ class BitbarOutput
     if bash
       line += " bash='#{bash}'"
       line += " terminal=#{terminal}" if terminal == true || terminal == false
-      params&.each_with_index { |value, index| line += " param#{index}='#{value}'" }
+      params&.each_with_index { |value, index| line += " param#{index + 1}='#{value}'" }
     end
 
     line += " length=#{length}" if length
@@ -257,7 +257,7 @@ def print_build(output, build, with_author: false, with_repo: false)
 
   if build.event == 'pull_request'
     output.submenu('Go to PR', href: build.link.sub('.diff', ''))
-    output.submenu('Copy branch', bash: '/bin/bash', params: ['-c', "echo #{build.source} | pbcopy"], terminal: false)
+    output.submenu('Copy branch', bash: '/bin/bash', params: ['-c', "'/usr/bin/printf #{build.source} | /usr/bin/pbcopy'"], terminal: false)
   end
 
   alternate = "#{build.event} from #{build.author_login} on #{build.repository.slug}"
