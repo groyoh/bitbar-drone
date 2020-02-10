@@ -100,7 +100,7 @@ class DroneClient
   end
 
   def builds(repo)
-    page = 0
+    page = 1
     builds = []
     loop do
       new_builds = get(BUILDS_PATH.sub('{slug}', repo.slug), per_page: 100, page: page)
