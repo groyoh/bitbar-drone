@@ -255,6 +255,7 @@ def print_build(output, build, with_author: false, with_repo: false)
 
   output.menu(title, color: color, href: href)
 
+  output.submenu(build.source)
   if build.event == 'pull_request'
     output.submenu('Go to PR', href: build.link.sub('.diff', ''))
     output.submenu('Copy branch', bash: '/bin/bash', params: ['-c', "'/usr/bin/printf #{build.source} | /usr/bin/pbcopy'"], terminal: false)
