@@ -274,7 +274,7 @@ def author_builds(builds_grouped_by_author, author)
 end
 
 def sort_builds(builds)
-  builds.sort { |build| -build.created_at.to_i }
+  builds.sort { |build| build.created_at.to_i }
 end
 
 def recent_builds(builds)
