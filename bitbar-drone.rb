@@ -340,8 +340,9 @@ begin
 
     recent_builds_grouped_by_author = recent_builds.group_by(&:author_login)
 
-    recent_builds_grouped_by_author.each do |author, recent_author_builds|
-      next unless recent_author_builds.any?
+    AUTHORS.each do |author|
+      recent_author_builds = recent_builds_grouped_by_author[author]
+      next unless recent_author_builds&.any?
 
       output.menu("Recent builds from #{author} on #{slug}")
       print_builds(output, recent_author_builds)
